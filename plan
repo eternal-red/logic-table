@@ -1,0 +1,11 @@
+input="p ∨ q, p → r, q → s / ∴ r ∨ s"
+
+
+-take out all spaces in input 
+-be able to split formulas into their own formulas by comma
+-translate formula into python
+-find all unique variables and setup all permutations
+-perform all formulas for all permutations of the variables
+-store the results in a table
+  -if all formula and conclusion is correct, highlight row
+  -if conclusion is correct highlight row
