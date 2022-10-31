@@ -1,5 +1,5 @@
 import time
-from decimal import *
+import main
 
 #start time
 start_time=time.time_ns()
@@ -8,7 +8,8 @@ output=time.asctime(gm_time)
 print(output)
 
 #use for loop for average time estimate
-'''compute setup formula'''
+#formula=''
+#print(main.main(formula))
 #cleartext=(enc.dec(1,encrypted))
 
 #calculate elapsed time

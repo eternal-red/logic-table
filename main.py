@@ -4,7 +4,7 @@ def main(input):
     formulas=setupFormulas(input)
     uniqVars=setupVars(input)
     columnNames=formulas+uniqVars
-    truthValues=setupTruthvalues(uniqVars)
+    truthValues=setupTruthvalues(uniqVars)  
     return truthValues
     
 def setupFormulas(input):
@@ -50,8 +50,6 @@ def setupTruthvalues(lettersList):
         tupleList=tuple(valuesList)
         table.append(tupleList)
     return table
-
-
 
 #main loop
 formula="p ∨ q, p → r, q → s / ∴ r ∨ s"
