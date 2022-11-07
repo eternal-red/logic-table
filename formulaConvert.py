@@ -1,71 +1,20 @@
-def convertFormulas(formulas):
-    dynamicCode=[]
+def formulasCode(formulas):
+    formulaCodes=[]
+    #put parentheses around not
+    charToreplace={'∧': ' and ', '&': ' and ', '⋅': ' and ',
+                   '∨':' or ','|':' or ',
+                   '¬':' not ', '!':' not ', '~':' not ',
+                   '↔':'==', '≡':'=='}
     for formula in formulas:
+        for key, value in charToreplace.items():
+            formula = formula.replace(key, value)
+        #translate if statement
         for i in range(len(formula)):
-            if (ord(i)>=65 and ord(i)<=90) or (ord(i)>=97 and ord(i)<=122):
-                continue
-            
-    
+            if formula[i] in {'⇒','→','⊃'}:   
+                formula=f'{formula[i+1:]} if {formula[:i]} else 1'
+        #check again, keep on going until you see if, then do same thing again, make a while loop?
+        formulaCodes.append(formula)
+    return formulaCodes
 
-#(['p∨q', 'p→r', 'q→s', 'r∨s'])
-
-
-experiment= '''
-if (A or B):
-    if C:
-        print(True)
-    else:
-        print(False)
-'''
-
-#exec(experiment)
-uniqVars=['a','b','c','d']
-truths=[1,1,0,0]
-
-
-        
-
-
-truthValues=[(0, 0, 0, 0), (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1), (1, 1, 0, 0), (1, 0, 1, 0), (1, 0, 0, 1), (0, 1, 1, 0), (0, 1, 0, 1), (0, 0, 1, 1), (1, 
-1, 1, 0), (1, 1, 0, 1), (1, 0, 1, 1), (0, 1, 1, 1), (1, 1, 1, 1)]
-uniqVars=['a','b','c','d']
-#try working with dictionaries or tuples
-##put in main loop
-def setupVars(uniqVars,truthValues):
-    for i in truthValues:
-        output=dict(zip(uniqVars,i))
-        ##do formula stuff here
-        ##append rows here
-    return
-
-#print(setupVars(uniqVars,truthValues))
-
-def formulaConvert(formulas):
-    for formula in formulas:
-        for i in range(len(formula)):
-            if i=='(':
-                pass
-            elif i=='∧' or '&'or '⋅':
-                output=f''''''
-            elif i=='∨'or '|':
-                pass
-            elif i=='¬'or '!'or '~':
-                pass
-            elif i=='⇒'or '→'or '⊃':
-                pass
-            elif i== '↔'or '≡':
-                pass
-'''   
-and ∧ & ⋅
-or ∨ |
-not ¬ ! ~
-if ⇒ → ⊃
-iff ↔ ≡
-
-some ∃
-all ∀
-contradiction ⊥
-syntax entailment ⊢
-possible ◇
-necessary ◻ □
-'''
+formulas=['(p∨q)→c→d','¬(a∧p)','a≡¬b∧c']
+print(formulasCode(formulas))

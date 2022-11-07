@@ -9,17 +9,15 @@ formula=['equation1', 'equation2','equation3']
  
 
 input='p ∨ q, p → r, q → s / ∴ r ∨ s'
-input2='∀'
-if input2=='∀':
-    print(input2)
 #output is spreadsheet and displays in VS
 
 '''
 and ∧ & ⋅
 or ∨ |
 not ¬ ! ~
-if ⇒ → ⊃
 iff ↔ ≡
+
+if ⇒ → ⊃
 
 some ∃
 all ∀

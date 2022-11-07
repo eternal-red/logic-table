@@ -1,56 +1,67 @@
 from itertools import combinations
 import pandas as pd
-def main(input):
-    formulas=setupFormulas(input)
-    uniqVars=setupVars(input)
-    columnNames=formulas+uniqVars
-    truthValues=setupTruthvalues(uniqVars)  
-    return truthValues
+def main(argument):
+    #prepare data for table
+    formulas=setupFormulas(argument,',')
+    varsList=setupVarslist(argument)
+    tableColumnNames=varsList+formulas #for table
+    truthValues=setupTruthValues(varsList)#for table
     
-def setupFormulas(input):
-    #take out all spaces in input
-    nospaces=''
-    for i in range(len(input)):
-        if input[i]!=' ':
-            nospaces+=input[i]
-    nospaces=nospaces.replace('∴',',')
-    nospaces=nospaces.replace('⊢',',')
-    nospaces=nospaces.replace('/','')
-
-    #be able to split formulas into their own formulas by comma
-    formulaList=nospaces.split(',')
+    #formula code
+    formula=formulasCode(formulas)
+    howtostore=calculateFormulaValues(formulas,truthValues)
+    makeTable(tableColumnNames,truthValues,howtostore)
+    checkValidity()
+    return 
+    
+def setupFormulas(argument,seperator=','): #breaks the argument into a list of formulas (each premise/conclusion)
+    #replace conclusion seperator with common seperator
+    argument=argument.replace('∴',seperator)
+    argument=argument.replace('⊢',seperator)
+    argument=argument.replace('/','')
+    #splits formulas into list
+    formulaList=argument.split(seperator)
     return formulaList
-def setupVars(input):
-#find all unique variables
-    uniqVars=[]
-    for i in range(len(input)):
-        if ord(input[i])>=97 and ord(input[i])<=122:
-            if input[i] not in uniqVars:
-                uniqVars.append(input[i])
-    return uniqVars
-
-
-def setupTruthvalues(lettersList):
-    # testline lettersList=['A','B','C']
-    listCombinations = list()
-    valuesList= [None]*len(lettersList)
-    table=[]
-    ### all variables choose x to be true (for all values of x and variables are unique)
-    for size in range(len(lettersList) + 1):
-        listCombinations += list(combinations(lettersList, size))
-    ###assign true values 
-    counter=0
-    for permutation in listCombinations:
-        
-        for i in range(len(lettersList)):
-            if lettersList[i] in permutation:
+def setupVarslist(argument):
+#make list of all unique variables (lowercase letters) in argument
+    varsList=[]
+    for i in range(len(argument)):
+        if ord(argument[i])>=97 and ord(argument[i])<=122: 
+            if argument[i] not in varsList:
+                varsList.append(argument[i])
+    return varsList
+def setupTruthValues(varsList):
+    #all ways to choose x variables 
+    allCombinations = list() 
+    for numOfTrue in range(len(varsList) + 1):
+        allCombinations += list(combinations(varsList, numOfTrue))
+    #assign truth values 
+    allTruthvalues=[]
+    for combination in allCombinations:
+        valuesList= [None]*len(varsList)  
+        #seeing if variable is in combination tuple or not
+        for i in range(len(varsList)):
+            if varsList[i] in combination:
                 valuesList[i]=1
             else:
                 valuesList[i]=0
-        tupleList=tuple(valuesList)
-        table.append(tupleList)
-    return table
+        tupleList=tuple(valuesList) #prevents aliasing
+        allTruthvalues.append(tupleList) 
+    #make list into dictionary   
+    Truthvaluedics=[]
+    for truthValues in allTruthvalues:
+        dictionary=dict(zip(varsList,truthValues))
+        Truthvaluedics.append(dictionary)
+    return Truthvaluedics
+def formulasCode(formula):
+    pass
+def calculateFormulaValues(formulas,truthValues):
+    pass
+def makeTable(tableColumnNames,truthValues,howtostore):
+    pass
+def checkValidity():
+    pass
 
-#main loop
+#main
 formula="p ∨ q, p → r, q → s / ∴ r ∨ s"
 print(main(formula))
