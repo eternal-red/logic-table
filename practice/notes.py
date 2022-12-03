@@ -21,8 +21,9 @@ if ⇒ → ⊃
 
 some ∃
 all ∀
-contradiction ⊥
-syntax entailment ⊢
 possible ◇
 necessary ◻ □
+
+contradiction ⊥
+syntax entailment ⊢
 '''

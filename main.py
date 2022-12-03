@@ -56,7 +56,13 @@ def setupTruthValues(varsList):
 def formulasCode(formula):
     pass
 def calculateFormulaValues(formulas,truthValues):
-    pass
+    FormulaValueList=[]
+    for i in range(truthValues):
+        varsList=i
+        subFormulaList=[]
+        for i in formulas:
+            subFormulaList.append(exec(i))
+        FormulaValueList.append(subFormulaList)
 def makeTable(tableColumnNames,truthValues,howtostore):
     pass
 def checkValidity():

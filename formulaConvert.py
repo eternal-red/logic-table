@@ -12,6 +12,7 @@ def formulasCode(formulas):
         for i in range(len(formula)):
             if formula[i] in {'⇒','→','⊃'}:   
                 formula=f'{formula[i+1:]} if {formula[:i]} else 1'
+                
         #check again, keep on going until you see if, then do same thing again, make a while loop?
         formulaCodes.append(formula)
     return formulaCodes
